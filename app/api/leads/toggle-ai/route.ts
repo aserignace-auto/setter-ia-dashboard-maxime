@@ -16,7 +16,7 @@ export async function PATCH(request: Request) {
     }
 
     const response = await fetch(
-      `${supabaseUrl}/rest/v1/leads_maxime?id=eq.${leadId}`,
+      `${supabaseUrl}/rest/v1/leads?id=eq.${leadId}`,
       {
         method: 'PATCH',
         headers: {

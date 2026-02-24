@@ -1,6 +1,7 @@
 import { NextResponse } from 'next/server';
 
-const TABLE = 'agent_status_maxime';
+const TABLE = 'agent_status';
+const CLIENT_ID = 'maxime';
 
 // GET — Lire le statut global de l'agent
 export async function GET() {
@@ -13,7 +14,7 @@ export async function GET() {
 
   try {
     const response = await fetch(
-      `${supabaseUrl}/rest/v1/${TABLE}?select=*&limit=1`,
+      `${supabaseUrl}/rest/v1/${TABLE}?select=*&client_id=eq.${CLIENT_ID}&limit=1`,
       {
         headers: {
           'apikey': supabaseKey,
@@ -41,7 +42,7 @@ export async function GET() {
             'Content-Type': 'application/json',
             'Prefer': 'return=representation',
           },
-          body: JSON.stringify({ is_active: true }),
+          body: JSON.stringify({ is_active: true, client_id: CLIENT_ID }),
         }
       );
       const created = await createRes.json();
@@ -72,7 +73,7 @@ export async function PATCH(request: Request) {
     }
 
     const getRes = await fetch(
-      `${supabaseUrl}/rest/v1/${TABLE}?select=id&limit=1`,
+      `${supabaseUrl}/rest/v1/${TABLE}?select=id&client_id=eq.${CLIENT_ID}&limit=1`,
       {
         headers: {
           'apikey': supabaseKey,
